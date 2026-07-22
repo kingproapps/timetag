@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Timetag - The ultimate timestamp camera app. Tag your photos and videos with real-time date, time, GPS coordinates, and scan QR/barcodes instantly.">
+    <meta name="keywords" content="timestamp camera, GPS photo, location overlay, time stamp app, QR scanner, barcode scan, photo tags, Timetag">
+    <meta name="author" content="King Pro Apps">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kingproapps.com/">
+    <meta property="og:title" content="Timetag - Precise Timestamp & GPS Camera">
+    <meta property="og:description" content="Overlay date, time, and GPS coordinates onto your media in real time. Scan QR codes and barcodes with instant geotagged context.">
+    <meta property="og:image" content="https://kingproapps.com/TimeTagicon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://kingproapps.com/">
+    <meta property="twitter:title" content="Timetag - Precise Timestamp & GPS Camera">
+    <meta property="twitter:description" content="Overlay date, time, and GPS coordinates onto your media in real time. Scan QR codes and barcodes with instant geotagged context.">
+    <meta property="twitter:image" content="https://kingproapps.com/TimeTagicon.png">
+
+    <title>Timetag - Precise Timestamp & GPS Camera</title>
+    
+    <link rel="icon" type="image/png" href="TimeTagicon.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#fc8d00',
+                            orangeHover: '#e07d00',
+                            dark: '#0a0a0b',
+                            card: '#16161a',
+                            border: '#2c2c35',
+                            textMuted: '#9ca3af'
+                        }
+                    },
+                    fontFamily: {
+                        courier: ['CourierPrime', 'Courier New', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for Font & Animations -->
+    <style>
+        @font-face {
+            font-family: 'CourierPrime';
+            src: url('CourierPrime.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .custom-font {
+            font-family: 'CourierPrime', 'Courier New', Courier, monospace;
+        }
+
+        /* Pulsing camera shutter effect */
+        @keyframes shutter-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.92); opacity: 0.8; }
+        }
+        .shutter-btn:active {
+            animation: shutter-pulse 0.2s ease-out;
+        }
+
+        /* Gradient animations */
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 30%, #fc8d00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-orange {
+            box-shadow: 0 0 25px -5px rgba(252, 141, 0, 0.4);
+        }
+        
+        .glow-orange-sm {
+            box-shadow: 0 0 15px -3px rgba(252, 141, 0, 0.2);
+        }
+
+        /* Viewfinder Scanning Grid Line Animation */
+        @keyframes scan-move {
+            0% { top: 10%; }
+            50% { top: 90%; }
+            100% { top: 10%; }
+        }
+        .scan-line {
+            animation: scan-move 4s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white font-sans antialiased selection:bg-brand-orange selection:text-brand-dark">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo & Brand Name -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <img src="TimeTagicon.png" alt="Timetag Logo" class="h-10 w-10 rounded-xl border border-brand-border group-hover:scale-105 transition-transform duration-300">
+                <span class="text-xl font-bold tracking-wider custom-font text-white group-hover:text-brand-orange transition-colors duration-300">
+                    TIME<span class="text-brand-orange">TAG</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide uppercase">
+                <a href="#features" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Features</a>
+                <a href="#customizer" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Interactive Preview</a>
+                <a href="#faq" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">FAQ</a>
+                <a href="support.html" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Support</a>
+            </nav>
+
+            <!-- CTA Download Nav Button -->
+            <div class="flex items-center space-x-4">
+                <a href="#download" class="bg-brand-orange text-brand-dark hover:bg-brand-orangeHover px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-[0_0_15px_rgba(252,141,0,0.5)] transform hover:-translate-y-0.5">
+                    Download App
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+        <!-- Background Decorative Elements -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-brand-orange/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-brand-orange/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            <!-- Left Info Column (7/12 on large) -->
+            <div class="lg:col-span-7 flex flex-col justify-center space-y-8 text-center lg:text-left z-10">
+                <div class="inline-flex items-center self-center lg:self-start space-x-2 bg-brand-border/60 border border-brand-border px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-brand-orange">
+                    <span class="flex h-2 w-2 rounded-full bg-brand-orange animate-pulse"></span>
+                    <span>Version 2.4 Now Available</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+                    <span class="gradient-text">Capture the Moment.</span><br>
+                    <span class="text-white">Pinpoint the </span><span class="text-brand-orange font-bold">Time & Place.</span>
+                </h1>
+                
+                <p class="text-lg text-gray-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Timetag is the ultimate high-precision camera companion. Embed unalterable date, time, millisecond, and exact GPS location overlays directly into your photos and videos. Instantly scan codes while logging full contextual data.
+                </p>
+
+                <!-- Download Badges -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    <!-- Apple App Store -->
+                    <a href="#" class="w-48 h-14 bg-black border border-brand-border hover:border-brand-orange/60 rounded-xl flex items-center px-4 space-x-3 transition-all duration-300 hover:shadow-[0_0_15px_rgba(252,141,0,0.15)] transform hover:-translate-y-0.5 group">
+                        <svg class="w-7 h-7 text-white group-hover:text-brand-orange transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71,19.5 C17.88,20.74 17,21.95 15.66,21.97 C14.32,22 13.89,21.18 12.37,21.18 C10.84,21.18 10.37,21.95 9.1,22 C7.79,22.05 6.8,20.68 5.96,19.47 C4.25,17 2.94,12.45 4.7,9.39 C5.57,7.87 7.13,6.91 8.82,6.88 C10.1,6.86 11.32,7.75 12.11,7.75 C12.89,7.75 14.37,6.68 15.92,6.84 C16.57,6.87 18.39,7.1 19.56,8.82 C19.47,8.88 17.39,10.1 17.41,12.63 C17.44,15.65 20.06,16.66 20.1,16.67 C20.08,16.74 19.67,18.11 18.71,19.5 M15.97,4.17 C16.63,3.37 17.07,2.28 16.95,1 C16,1.04 14.9,1.6 14.24,2.38 C13.68,3.04 13.19,4.14 13.34,5.39 C14.39,5.47 15.4,4.88 15.97,4.17 Z" />
+                        </svg>
+                        <div class="flex flex-col text-left">
+                            <span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Download on the</span>
+                            <span class="text-sm font-bold text-white -mt-1 leading-none">App Store</span>
+                        </div>
+                    </a>
+
+                    <!-- Google Play Store -->
+                    <a href="#" class="w-48 h-14 bg-black border border-brand-border hover:border-brand-orange/60 rounded-xl flex items-center px-4 space-x-3 transition-all duration-300 hover:shadow-[0_0_15px_rgba(252,141,0,0.15)] transform hover:-translate-y-0.5 group">
+                        <svg class="w-7 h-7 text-white group-hover:text-brand-orange transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5,3.23c-0.12,0.13-0.2,0.34-0.2,0.61v16.32c0,0.27,0.08,0.48,0.2,0.61l0.07,0.07L14.3,11.62v-0.24L5.07,2.16L5,3.23z" />
+                            <path d="M17.38,14.73l-3.08-3.08v-0.24l3.08-3.08l0.08,0.05l3.65,2.07c1.04,0.59,1.04,1.56,0,2.15l-3.65,2.07L17.38,14.73z" />
+                            <path d="M14.37,11.5l-3.21-3.21L5.14,2.26c0.34-0.09,0.76,0.03,1.21,0.28l11.11,6.31L14.37,11.5z" />
+                            <path d="M14.37,11.5l3.09,3.09l-11.11,6.31c-0.45,0.26-0.87,0.37-1.21,0.28L14.37,11.5z" />
+                        </svg>
+                        <div class="flex flex-col text-left">
+                            <span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Get it on</span>
+                            <span class="text-sm font-bold text-white -mt-1 leading-none">Google Play</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Trust Stats -->
+                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-brand-border max-w-md mx-auto lg:mx-0">
+                    <div>
+                        <p class="text-2xl font-extrabold text-brand-orange custom-font">4.8★</p>
+                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Store Rating</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-extrabold text-white custom-font">500K+</p>
+                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Downloads</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-extrabold text-white custom-font">0.02s</p>
+                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">GPS Sync Time</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual Column (5/12 on large) - Interactive Camera UI Mockup -->
+            <div class="lg:col-span-5 flex justify-center z-10">
+                <!-- iPhone Device Frame -->
+                <div class="relative w-[300px] h-[600px] bg-[#0a0a0b] rounded-[55px] p-3 border-[8px] border-[#1a1a1c] shadow-[0_0_50px_rgba(252,141,0,0.2)] flex flex-col overflow-hidden ring-1 ring-white/10">
+                    
+                    <!-- Dynamic Island / Notch -->
+                    <div class="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-50 flex items-center justify-end px-3">
+                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500/20 blur-[1px]"></div>
+                    </div>
+
+                    <!-- Inner Camera Screen App -->
+                    <div class="relative flex-1 w-full h-full rounded-[44px] overflow-hidden bg-black border border-white/5 flex flex-col justify-between font-courier">
+                        
+                        <!-- Top Viewfinder Toolbar -->
+                        <div class="flex items-center justify-between px-6 pt-10 pb-4 z-20">
+                            <svg class="w-5 h-5 text-brand-orange" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                            </svg>
+                            <div class="border border-white/40 rounded-md px-2 py-0.5 text-[9px] font-bold text-white tracking-widest bg-black/20 backdrop-blur-sm">3:4</div>
+                            <svg class="w-5 h-5 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 4v6h-6"></path>
+                                <path d="M1 20v-6h6"></path>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                            </svg>
+                            <svg class="w-5 h-5 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </div>
+
+                        <!-- Main Viewport area (3:4 Aspect Ratio) -->
+                        <div class="relative aspect-[3/4] overflow-hidden">
+                            <!-- Simulated Camera Viewfinder Photo (city.jpg) -->
+                            <div id="viewfinderBg" class="absolute inset-0 bg-cover bg-center transition-all duration-700" style="background-image: url('city.jpg')"></div>
+
+                            <!-- Real-Time Data Stamp Overlay (Unalterable metadata overlay - High Fidelity) -->
+                            <div id="cameraStamp" class="absolute top-4 left-4 z-20 bg-black/40 backdrop-blur-md px-3.5 py-3 rounded-sm border border-white/5 flex flex-col font-courier max-w-[85%]">
+                                <div class="flex items-center space-x-3">
+                                    <div id="stampTime" class="text-3xl font-normal leading-none text-white tracking-tighter">15:25</div>
+                                    <div class="w-[1.5px] h-9 bg-brand-orange"></div>
+                                    <div class="flex flex-col text-[10px] leading-tight text-white uppercase font-bold">
+                                        <div id="stampDate">Jul 01, 2026</div>
+                                        <div id="stampDay">Wednesday</div>
+                                    </div>
+                                </div>
+                                <div id="stampLocation" class="text-[9px] mt-2 text-white/90 leading-tight">
+                                    63, Nguyễn Đức Cảnh, Nghệ An
+                                </div>
+                            </div>
+
+                            <!-- Scan Frame Overlay -->
+                            <div id="viewfinderScanFrame" class="absolute inset-10 border-2 border-dashed border-brand-orange/40 rounded-xl flex items-center justify-center opacity-0 transition-opacity duration-500 pointer-events-none z-10">
+                                <div class="absolute inset-0 bg-brand-orange/5"></div>
+                                <div class="scan-line absolute left-0 right-0 h-0.5 bg-brand-orange shadow-[0_0_8px_#fc8d00]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Controls Area -->
+                        <div class="relative bg-black flex flex-col items-center pt-6 pb-12 space-y-5 z-20">
+                            <!-- Zoom & Ruler -->
+                            <div class="flex flex-col items-center space-y-3">
+                                <div class="bg-zinc-800 rounded-full px-3 py-1 text-[10px] font-bold text-brand-orange border border-white/5 shadow-inner">1.0x</div>
+                                <div class="flex items-end space-x-1.5 opacity-30">
+                                    <div class="w-[1.5px] h-3.5 bg-white"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[2px] h-5.5 bg-brand-orange"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[1px] h-2 bg-white"></div>
+                                    <div class="w-[1.5px] h-3.5 bg-white"></div>
+                                </div>
+                            </div>
+
+                            <!-- Mode Selector -->
+                            <div class="flex items-center space-x-8 text-[11px] font-bold tracking-widest uppercase">
+                                <span class="text-brand-orange">PHOTO</span>
+                                <span class="text-white/35">VIDEO</span>
+                                <span class="text-white/35">QR CODE</span>
+                            </div>
+
+                            <!-- Main Shutter & Buttons -->
+                            <div class="w-full flex items-center justify-between px-10 pt-1">
+                                <!-- Gallery icon -->
+                                <button class="w-12 h-12 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 transition-transform group">
+                                    <svg class="w-6 h-6 text-brand-orange group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                        <polyline points="21 15 16 10 5 21"></polyline>
+                                    </svg>
+                                </button>
+                                
+                                <!-- Capture Shutter (from maincamera.png) -->
+                                <button onclick="triggerMockCapture()" class="w-[72px] h-[72px] rounded-full border-[4px] border-brand-orange p-1 flex items-center justify-center group active:scale-[0.85] transition-all duration-150">
+                                    <div class="w-full h-full bg-brand-orange rounded-full group-hover:bg-brand-orangeHover transition-colors"></div>
+                                </button>
+                                
+                                <!-- Template Layer icon -->
+                                <button class="w-12 h-12 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center active:scale-95 transition-transform group">
+                                    <svg class="w-6 h-6 text-white/80 group-hover:text-brand-orange transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                        <polyline points="2 17 12 22 22 17"></polyline>
+                                        <polyline points="2 12 12 17 22 12"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- iOS Bottom Indicator -->
+                        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-white/20 rounded-full z-30"></div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LOGO BANNER (TRUST SYMBOLS) -->
+    <section class="bg-brand-card/40 border-y border-brand-border py-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+            <span class="text-gray-400 text-xs font-bold uppercase tracking-widest text-center md:text-left">Trusted globally for field verification, compliance, and claims validation</span>
+            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60">
+                <div class="font-extrabold tracking-widest text-sm custom-font">GEO-SURVEY INC</div>
+                <div class="font-extrabold tracking-widest text-sm custom-font">ELEVATE BUILD</div>
+                <div class="font-extrabold tracking-widest text-sm custom-font">SAFE-GUARD CO</div>
+                <div class="font-extrabold tracking-widest text-sm custom-font">KRONOS LOGISTIC</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE FEATURES SECTION -->
+    <section id="features" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header text -->
+            <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+                <h2 class="text-brand-orange uppercase text-xs font-bold tracking-widest">Industry-Leading Tool</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold tracking-tight">Engineered for Accuracy and Simplicity</p>
+                <p class="text-base text-gray-400">Timetag converts your mobile device into an unalterable auditing device. Perfect for construction managers, land surveyors, logistics drivers, insurance inspectors, and field engineers.</p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Precise GPS Stamps -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 hover:border-brand-orange/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(252,141,0,0.05)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 rounded-xl flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Precise Geotagging</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Automatically log latitude, longitude, elevation, compass direction, and horizontal accuracy radius directly on your media. Includes UTM/MGRS grid formats.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Atomic-Clock Timestamps -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 hover:border-brand-orange/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(252,141,0,0.05)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 rounded-xl flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Military-Grade Timing</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Sync with atomic NTP servers to prevent manual device-time alterations. Supports timecodes up to milliseconds and local, UTC, or custom timezones.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Code Scanning -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 hover:border-brand-orange/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(252,141,0,0.05)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 rounded-xl flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Barcode & QR Scan Overlay</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Instantly scan packages, items, asset tags, or QR links. The decoded value and format type is automatically imprinted onto the photo with geotagging metadata.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Customized Templates -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 hover:border-brand-orange/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(252,141,0,0.05)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 rounded-xl flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zm12 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Unmatched Layout Control</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Use custom brand fonts like <strong class="text-white">Courier Prime</strong>. Color-code tags, define sizes, adjust positioning, and append customized project notes or logo watermarks.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 5: Offline Geo Logging -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 hover:border-brand-orange/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(252,141,0,0.05)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 rounded-xl flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2.5M14 20a6.002 6.002 0 005.455-6" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold">100% Offline Integrity</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            No cellular connection? No problem. Timetag utilizes offline GPS triangulation models to cache high-accuracy location metadata and sync immediately when cell towers return.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 6: Project Folder Hub -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 hover:border-brand-orange/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(252,141,0,0.05)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 rounded-xl flex items-center justify-center text-brand-orange group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold">Categorized Folders</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Organize your scans and pictures into project-specific folders. Export complete sheets with embedded EXIF headers and tabular CSV exports for easy reporting.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE PREVIEW CUSTOMIZER SECTION -->
+    <section id="customizer" class="py-24 bg-zinc-950/40 border-y border-brand-border px-4 sm:px-6 lg:px-8 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Control Panel (5/12) -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <span class="text-brand-orange uppercase text-xs font-bold tracking-widest">Interactive Sandbox</span>
+                        <h2 class="text-3xl font-extrabold tracking-tight">Design Your Perfect Stamp</h2>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Experiment with styling before downloading. Switch layout templates, swap the underlying test media to simulate real-world environments, or choose your target stamp color.
+                        </p>
+                    </div>
+
+                    <!-- Option Group: Choose Template -->
+                    <div class="space-y-3">
+                        <label class="text-xs uppercase font-extrabold text-gray-400 tracking-wider">1. Select Stamp Template</label>
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <button onclick="setPreviewTemplate('standard')" id="panel-tmpl-standard" class="border border-brand-orange bg-brand-orange/10 text-brand-orange rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all">
+                                Standard
+                            </button>
+                            <button onclick="setPreviewTemplate('scientific')" id="panel-tmpl-scientific" class="border border-brand-border bg-brand-dark/40 hover:border-brand-orange/50 hover:bg-brand-orange/5 text-gray-300 rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all">
+                                UTM/GPS
+                            </button>
+                            <button onclick="setPreviewTemplate('scan')" id="panel-tmpl-scan" class="border border-brand-border bg-brand-dark/40 hover:border-brand-orange/50 hover:bg-brand-orange/5 text-gray-300 rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all">
+                                Barcode
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Option Group: Choose Media BG -->
+                    <div class="space-y-3">
+                        <label class="text-xs uppercase font-extrabold text-gray-400 tracking-wider">2. Simulate Field Environment</label>
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <button onclick="changeMockBg('sunset')" id="panel-bg-sunset" class="border border-brand-orange bg-brand-orange/10 text-brand-orange rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all">
+                                Sunset Field
+                            </button>
+                            <button onclick="changeMockBg('site')" id="panel-bg-site" class="border border-brand-border bg-brand-dark/40 hover:border-brand-orange/50 hover:bg-brand-orange/5 text-gray-300 rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all">
+                                Job Site
+                            </button>
+                            <button onclick="changeMockBg('scan')" id="panel-bg-scan" class="border border-brand-border bg-brand-dark/40 hover:border-brand-orange/50 hover:bg-brand-orange/5 text-gray-300 rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all">
+                                Barcode Pack
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Option Group: Choose Stamp Color -->
+                    <div class="space-y-3">
+                        <label class="text-xs uppercase font-extrabold text-gray-400 tracking-wider">3. Choose Overlay Color</label>
+                        <div class="flex items-center space-x-4">
+                            <button onclick="changeStampColor('#fc8d00', 'orange')" id="color-btn-orange" class="w-8 h-8 rounded-full bg-brand-orange ring-2 ring-white border-2 border-black focus:outline-none transition-transform hover:scale-110"></button>
+                            <button onclick="changeStampColor('#00ffcc', 'teal')" id="color-btn-teal" class="w-8 h-8 rounded-full bg-[#00ffcc] border-2 border-black hover:ring-2 hover:ring-white focus:outline-none transition-transform hover:scale-110"></button>
+                            <button onclick="changeStampColor('#ffffff', 'white')" id="color-btn-white" class="w-8 h-8 rounded-full bg-white border-2 border-black hover:ring-2 hover:ring-white focus:outline-none transition-transform hover:scale-110"></button>
+                            <button onclick="changeStampColor('#e11d48', 'red')" id="color-btn-red" class="w-8 h-8 rounded-full bg-rose-600 border-2 border-black hover:ring-2 hover:ring-white focus:outline-none transition-transform hover:scale-110"></button>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-2">
+                        <button onclick="triggerMockCapture()" class="w-full bg-brand-orange text-brand-dark font-bold py-3.5 rounded-xl uppercase tracking-wider hover:bg-brand-orangeHover transition-colors hover:shadow-lg hover:shadow-brand-orange/20 active:scale-[0.98]">
+                            ⚡ SNAP PREVIEW PHOTO
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Visual Simulator Window (7/12) -->
+                <div class="lg:col-span-7 flex justify-center">
+                    <!-- iPhone Device Frame for Sandbox -->
+                    <div class="relative w-[300px] h-[600px] bg-[#0a0a0b] rounded-[55px] p-3 border-[8px] border-[#1a1a1c] shadow-[0_0_60px_rgba(252,141,0,0.25)] flex flex-col overflow-hidden ring-1 ring-white/10 scale-110 lg:scale-100">
+                        
+                        <!-- Dynamic Island -->
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-50 flex items-center justify-end px-3">
+                            <div class="w-1.5 h-1.5 rounded-full bg-blue-500/20 blur-[1px]"></div>
+                        </div>
+
+                        <!-- Inner Camera Screen App -->
+                        <div class="relative flex-1 w-full h-full rounded-[44px] overflow-hidden bg-black border border-white/5 flex flex-col justify-between font-courier">
+                            
+                            <!-- Top Viewfinder Toolbar -->
+                            <div class="flex items-center justify-between px-6 pt-10 pb-4 z-20">
+                                <svg class="w-5 h-5 text-brand-orange" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                                <div class="border border-white/40 rounded-md px-2 py-0.5 text-[9px] font-bold text-white tracking-widest bg-black/20 backdrop-blur-sm">3:4</div>
+                                <svg class="w-5 h-5 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                                <svg class="w-5 h-5 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            </div>
+
+                            <!-- Main Viewport area -->
+                            <div class="relative flex-1 group">
+                                <!-- Simulated Environment (city.jpg) -->
+                                <div id="simulatedBg" class="absolute inset-0 bg-cover bg-center transition-all duration-700" style="background-image: url('city.jpg')"></div>
+
+                                <!-- Scan Frame Overlay for Sandbox -->
+                                <div id="simulatedScanFrame" class="absolute inset-10 border-2 border-dashed border-brand-orange/40 rounded-xl flex items-center justify-center opacity-0 transition-opacity duration-500 pointer-events-none z-10">
+                                    <div class="absolute inset-0 bg-brand-orange/5"></div>
+                                    <div class="scan-line absolute left-0 right-0 h-0.5 bg-brand-orange shadow-[0_0_8px_#fc8d00]"></div>
+                                </div>
+
+                                <!-- Real-Time Data Stamp Overlay (Sandbox version) -->
+                                <div id="simulatedStamp" class="absolute top-4 left-4 z-20 bg-black/50 backdrop-blur-md px-3.5 py-3 rounded-sm border border-white/5 flex flex-col font-courier max-w-[85%] transition-colors duration-300">
+                                    <div class="flex items-center space-x-3">
+                                        <div id="simulatedStampTime" class="text-3xl font-normal leading-none text-brand-orange tracking-tighter">15:25</div>
+                                        <div id="simulatedStampBar" class="w-[1.5px] h-9 bg-brand-orange"></div>
+                                        <div class="flex flex-col text-[10px] leading-tight text-white uppercase font-bold">
+                                            <div id="simulatedStampDate">Jul 01, 2026</div>
+                                            <div id="simulatedStampDay">Wednesday</div>
+                                        </div>
+                                    </div>
+                                    <div id="simulatedStampLocation" class="text-[9px] mt-2 text-white/90 leading-tight">
+                                        63, Nguyễn Đức Cảnh, Nghệ An
+                                    </div>
+                                </div>
+
+                                <!-- Flash & Toast -->
+                                <div id="shutterFlash" class="absolute inset-0 bg-white opacity-0 transition-opacity duration-75 pointer-events-none z-50"></div>
+                                <div id="savedToast" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 border border-brand-orange/50 backdrop-blur-md px-4 py-2.5 rounded-xl z-50 text-center font-bold text-[10px] tracking-wider uppercase text-brand-orange flex items-center space-x-2 scale-75 opacity-0 transition-all duration-300 whitespace-nowrap">
+                                    <svg class="w-4 h-4 text-brand-orange animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                                    <span>Captured to Gallery</span>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Controls Area -->
+                            <div class="relative bg-black flex flex-col items-center pt-6 pb-12 space-y-5 z-20">
+                                <!-- Zoom & Ruler -->
+                                <div class="flex flex-col items-center space-y-3">
+                                    <div class="bg-zinc-800 rounded-full px-3 py-1 text-[10px] font-bold text-brand-orange border border-white/5">1.0x</div>
+                                    <div class="flex items-end space-x-1.5 opacity-30">
+                                        <div class="w-[1.5px] h-3.5 bg-white"></div>
+                                        <div class="w-[1px] h-2 bg-white"></div>
+                                        <div class="w-[1px] h-2 bg-white"></div>
+                                        <div class="w-[2px] h-5.5 bg-brand-orange"></div>
+                                        <div class="w-[1px] h-2 bg-white"></div>
+                                        <div class="w-[1px] h-2 bg-white"></div>
+                                        <div class="w-[1.5px] h-3.5 bg-white"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Mode Selector -->
+                                <div class="flex items-center space-x-8 text-[11px] font-bold tracking-widest uppercase">
+                                    <span class="text-brand-orange">PHOTO</span>
+                                    <span class="text-white/35">VIDEO</span>
+                                    <span class="text-white/35">QR CODE</span>
+                                </div>
+
+                                <!-- Main Shutter & Buttons -->
+                                <div class="w-full flex items-center justify-between px-10 pt-1">
+                                    <div class="w-11 h-11 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center overflow-hidden">
+                                        <svg class="w-5 h-5 text-brand-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    </div>
+                                    <button onclick="triggerMockCapture()" class="w-16 h-16 rounded-full border-[3px] border-brand-orange p-1 flex items-center justify-center group active:scale-[0.85] transition-all"><div class="w-full h-full bg-brand-orange rounded-full"></div></button>
+                                    <div class="w-11 h-11 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- iOS Bottom Indicator -->
+                            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-white/20 rounded-full z-30"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FREQUENTLY ASKED QUESTIONS SECTION -->
+    <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header text -->
+            <div class="text-center mb-16 space-y-4">
+                <span class="text-brand-orange uppercase text-xs font-bold tracking-widest">Get Answers</span>
+                <h2 class="text-3xl font-extrabold tracking-tight">Frequently Asked Questions</h2>
+            </div>
+
+            <!-- Accordion FAQ Items -->
+            <div class="space-y-4">
+                
+                <!-- Q1 -->
+                <div class="bg-brand-card rounded-xl border border-brand-border p-6 transition-all hover:border-brand-orange/30">
+                    <button class="w-full text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(1)">
+                        <span class="text-base font-bold text-white pr-4">Can users edit or fake the timestamp / coordinates on Timetag?</span>
+                        <span class="text-brand-orange font-bold text-xl flex-shrink-0" id="faq-icon-1">+</span>
+                    </button>
+                    <div class="mt-4 text-sm text-gray-400 hidden transition-all duration-300 leading-relaxed" id="faq-ans-1">
+                        No. Timetag was designed specifically for high-integrity compliance operations. It synchronizes directly with network NTP atomic clock servers and locked GPS satellites, bypassing local device time alterations to prevent fraud or tampering.
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-brand-card rounded-xl border border-brand-border p-6 transition-all hover:border-brand-orange/30">
+                    <button class="w-full text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(2)">
+                        <span class="text-base font-bold text-white pr-4">How does the integrated QR/Barcode scanner work?</span>
+                        <span class="text-brand-orange font-bold text-xl flex-shrink-0" id="faq-icon-2">+</span>
+                    </button>
+                    <div class="mt-4 text-sm text-gray-400 hidden transition-all duration-300 leading-relaxed" id="faq-ans-2">
+                        When you switch the app to "Scan Mode", pointing the camera viewfinder at any QR code, EAN, UPC, or PDF417 barcode will instantly decode it. The application then immediately generates an on-screen stamp detailing the barcode's exact code alongside the timestamp and GPS coordinates, merging them directly into the saved photo frame.
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="bg-brand-card rounded-xl border border-brand-border p-6 transition-all hover:border-brand-orange/30">
+                    <button class="w-full text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(3)">
+                        <span class="text-base font-bold text-white pr-4">Can I load and use my own font?</span>
+                        <span class="text-brand-orange font-bold text-xl flex-shrink-0" id="faq-icon-3">+</span>
+                    </button>
+                    <div class="mt-4 text-sm text-gray-400 hidden transition-all duration-300 leading-relaxed" id="faq-ans-3">
+                        Absolutely! In the template customizations menu, you can select from a wide range of native fonts or load custom TrueType (.ttf) files—including our highly readable default **Courier Prime** font—to give your secure overlays a highly stylized or professional retro typewriter aesthetic.
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="bg-brand-card rounded-xl border border-brand-border p-6 transition-all hover:border-brand-orange/30">
+                    <button class="w-full text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(4)">
+                        <span class="text-base font-bold text-white pr-4">Does the app store or share any location or photo data?</span>
+                        <span class="text-brand-orange font-bold text-xl flex-shrink-0" id="faq-icon-4">+</span>
+                    </button>
+                    <div class="mt-4 text-sm text-gray-400 hidden transition-all duration-300 leading-relaxed" id="faq-ans-4">
+                        Your privacy is our utmost priority. Timetag operates completely locally on your device. We do not upload, collect, or share your captured photos, videos, scan codes, or GPS location records with external servers. Check our <a href="privacy.html" class="text-brand-orange hover:underline">Privacy Policy</a> for more details.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD CALL-TO-ACTION (CTA) SECTION -->
+    <section id="download" class="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-b from-brand-dark to-zinc-950 border-t border-brand-border">
+        <!-- Decorative glowing orb -->
+        <div class="absolute bottom-[-100px] left-1/2 transform -translate-x-1/2 w-[600px] h-[300px] bg-brand-orange/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+            <img src="TimeTagicon.png" alt="Timetag Icon" class="h-20 w-20 rounded-2xl mx-auto border-2 border-brand-orange shadow-[0_0_30px_rgba(252,141,0,0.3)] animate-pulse">
+            
+            <div class="space-y-4">
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Ready to Audit with Confidence?</h2>
+                <p class="text-lg text-gray-400 max-w-xl mx-auto leading-relaxed">
+                    Get Timetag now on iOS and Android. Start capturing high-integrity, unalterable visual evidence.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <!-- Apple badge -->
+                <a href="#" class="w-52 h-16 bg-black border-2 border-brand-border hover:border-brand-orange/80 rounded-2xl flex items-center px-5 space-x-3 transition-all duration-300 hover:shadow-[0_0_25px_rgba(252,141,0,0.2)] transform hover:-translate-y-1 group">
+                    <svg class="w-8 h-8 text-white group-hover:text-brand-orange transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71,19.5 C17.88,20.74 17,21.95 15.66,21.97 C14.32,22 13.89,21.18 12.37,21.18 C10.84,21.18 10.37,21.95 9.1,22 C7.79,22.05 6.8,20.68 5.96,19.47 C4.25,17 2.94,12.45 4.7,9.39 C5.57,7.87 7.13,6.91 8.82,6.88 C10.1,6.86 11.32,7.75 12.11,7.75 C12.89,7.75 14.37,6.68 15.92,6.84 C16.57,6.87 18.39,7.1 19.56,8.82 C19.47,8.88 17.39,10.1 17.41,12.63 C17.44,15.65 20.06,16.66 20.1,16.67 C20.08,16.74 19.67,18.11 18.71,19.5 M15.97,4.17 C16.63,3.37 17.07,2.28 16.95,1 C16,1.04 14.9,1.6 14.24,2.38 C13.68,3.04 13.19,4.14 13.34,5.39 C14.39,5.47 15.4,4.88 15.97,4.17 Z" />
+                    </svg>
+                    <div class="flex flex-col text-left">
+                        <span class="text-[11px] text-gray-400 uppercase tracking-widest font-bold">Download on the</span>
+                        <span class="text-base font-extrabold text-white -mt-1 leading-none">App Store</span>
+                    </div>
+                </a>
+
+                <!-- Google Badge -->
+                <a href="#" class="w-52 h-16 bg-black border-2 border-brand-border hover:border-brand-orange/80 rounded-2xl flex items-center px-5 space-x-3 transition-all duration-300 hover:shadow-[0_0_25px_rgba(252,141,0,0.2)] transform hover:-translate-y-1 group">
+                    <svg class="w-8 h-8 text-white group-hover:text-brand-orange transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5,3.23c-0.12,0.13-0.2,0.34-0.2,0.61v16.32c0,0.27,0.08,0.48,0.2,0.61l0.07,0.07L14.3,11.62v-0.24L5.07,2.16L5,3.23z" />
+                        <path d="M17.38,14.73l-3.08-3.08v-0.24l3.08-3.08l0.08,0.05l3.65,2.07c1.04,0.59,1.04,1.56,0,2.15l-3.65,2.07L17.38,14.73z" />
+                        <path d="M14.37,11.5l-3.21-3.21L5.14,2.26c0.34-0.09,0.76,0.03,1.21,0.28l11.11,6.31L14.37,11.5z" />
+                        <path d="M14.37,11.5l3.09,3.09l-11.11,6.31c-0.45,0.26-0.87,0.37-1.21,0.28L14.37,11.5z" />
+                    </svg>
+                    <div class="flex flex-col text-left">
+                        <span class="text-[11px] text-gray-400 uppercase tracking-widest font-bold">Get it on</span>
+                        <span class="text-base font-extrabold text-white -mt-1 leading-none">Google Play</span>
+                    </div>
+                </a>
+            </div>
+            
+            <p class="text-xs text-gray-500 font-medium">Compatible with iOS 15.0+ and Android 9.0+ • Ad-Free</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-950 border-t border-brand-border py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <img src="TimeTagicon.png" alt="Timetag Logo" class="h-8 w-8 rounded-lg border border-brand-border">
+                <span class="text-md font-bold tracking-wider custom-font text-white">
+                    TIME<span class="text-brand-orange">TAG</span>
+                </span>
+            </div>
+
+            <p class="text-xs text-gray-500 text-center md:text-left order-last md:order-none">
+                &copy; 2026 King Pro Apps. All rights reserved. All trademarks belong to their respective owners.
+            </p>
+
+            <div class="flex space-x-6 text-xs font-semibold uppercase tracking-wider">
+                <a href="privacy.html" class="text-gray-400 hover:text-brand-orange transition-colors">Privacy Policy</a>
+                <a href="support.html" class="text-gray-400 hover:text-brand-orange transition-colors">Support</a>
+                <a href="#" class="text-gray-400 hover:text-brand-orange transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // State management
+        let currentTemplate = 'standard';
+        let currentBg = 'sunset';
+        let currentStampColor = '#fc8d00';
+
+        // Custom template definitions (matching high-fidelity layout)
+        const templates = {
+            standard: {
+                time: '15:25',
+                date: 'Jul 22, 2026',
+                day: 'Wednesday',
+                location: '63, Nguyễn Đức Cảnh, Nghệ An',
+                hasScan: false
+            },
+            scientific: {
+                time: '15:25',
+                date: '2026-07-22',
+                day: 'UTM: 48Q WG',
+                location: 'LAT: 18.6733° N | LON: 105.6922° E',
+                hasScan: false
+            },
+            scan: {
+                time: 'CODE',
+                date: '8935001',
+                day: 'EAN-13',
+                location: 'ITEM: STAINLESS STEEL WATER BOTTLE',
+                hasScan: true
+            }
+        };
+
+        const backgrounds = {
+            sunset: "url('city.jpg')",
+            site: "linear-gradient(to bottom, #18181b, #09090b)", // Fallback dark gradient
+            scan: "linear-gradient(to bottom, #27272a, #000000)" 
+        };
+
+        function updateLiveClock() {
+            if (currentTemplate === 'scan') return; // Don't overwrite scan codes with clock
+
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2, '0');
+            const min = String(now.getMinutes()).padStart(2, '0');
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            const timeStr = `${hh}:${min}`;
+            const dateStr = `${months[now.getMonth()]} ${String(now.getDate()).padStart(2, '0')}, ${now.getFullYear()}`;
+            const dayStr = days[now.getDay()];
+
+            // Update Hero
+            if (document.getElementById('stampTime')) document.getElementById('stampTime').innerText = timeStr;
+            if (document.getElementById('stampDate')) document.getElementById('stampDate').innerText = dateStr;
+            if (document.getElementById('stampDay')) document.getElementById('stampDay').innerText = dayStr;
+
+            // Update Sandbox
+            if (document.getElementById('simulatedStampTime')) document.getElementById('simulatedStampTime').innerText = timeStr;
+            if (document.getElementById('simulatedStampDate')) document.getElementById('simulatedStampDate').innerText = dateStr;
+            if (document.getElementById('simulatedStampDay')) document.getElementById('simulatedStampDay').innerText = dayStr;
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
+
+        function setPreviewTemplate(tmplKey) {
+            currentTemplate = tmplKey;
+            const data = templates[tmplKey];
+
+            // Update Sandbox
+            document.getElementById('simulatedStampTime').innerText = data.time;
+            document.getElementById('simulatedStampDate').innerText = data.date;
+            document.getElementById('simulatedStampDay').innerText = data.day;
+            document.getElementById('simulatedStampLocation').innerText = data.location;
+
+            // Update Hero
+            document.getElementById('stampTime').innerText = data.time;
+            document.getElementById('stampDate').innerText = data.date;
+            document.getElementById('stampDay').innerText = data.day;
+            document.getElementById('stampLocation').innerText = data.location;
+
+            // Toggle scan frame
+            const scanFrame = document.getElementById('simulatedScanFrame');
+            const viewScanFrame = document.getElementById('viewfinderScanFrame');
+            if (data.hasScan) {
+                scanFrame.classList.remove('opacity-0');
+                viewScanFrame.classList.remove('opacity-0');
+                changeMockBg('scan');
+            } else {
+                scanFrame.classList.add('opacity-0');
+                viewScanFrame.classList.add('opacity-0');
+                changeMockBg('sunset');
+            }
+
+            // Sync Buttons
+            ['standard', 'scientific', 'scan'].forEach(k => {
+                const pBtn = document.getElementById(`panel-tmpl-${k}`);
+                if (pBtn) pBtn.className = (k === tmplKey) ? "border border-brand-orange bg-brand-orange/10 text-brand-orange rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all" : "border border-brand-border bg-brand-dark/40 hover:border-brand-orange/50 hover:bg-brand-orange/5 text-gray-300 rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all";
+            });
+            
+            if (!data.hasScan) updateLiveClock();
+        }
+
+        function changeMockBg(bgKey) {
+            currentBg = bgKey;
+            const bgValue = backgrounds[bgKey];
+            
+            const simBg = document.getElementById('simulatedBg');
+            const viewBg = document.getElementById('viewfinderBg');
+            
+            simBg.style.backgroundImage = bgValue;
+            viewBg.style.backgroundImage = bgValue;
+
+            ['sunset', 'site', 'scan'].forEach(k => {
+                const btn = document.getElementById(`panel-bg-${k}`);
+                if (btn) btn.className = (k === bgKey) ? "border border-brand-orange bg-brand-orange/10 text-brand-orange rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all" : "border border-brand-border bg-brand-dark/40 hover:border-brand-orange/50 hover:bg-brand-orange/5 text-gray-300 rounded-lg py-2 text-xs font-semibold uppercase tracking-wider transition-all";
+            });
+        }
+
+        function changeStampColor(colorHex, colorName) {
+            currentStampColor = colorHex;
+            const elements = [document.getElementById('simulatedStampTime'), document.getElementById('simulatedStampBar'), document.getElementById('simulatedStamp')];
+            
+            document.getElementById('simulatedStampTime').style.color = colorHex;
+            document.getElementById('simulatedStampBar').style.backgroundColor = colorHex;
+            document.getElementById('simulatedStamp').style.borderColor = `${colorHex}30`;
+
+            // Style ring indicator
+            ['orange', 'teal', 'white', 'red'].forEach(col => {
+                const btn = document.getElementById(`color-btn-${col}`);
+                if (btn) (col === colorName) ? btn.classList.add('ring-2', 'ring-white') : btn.classList.remove('ring-2', 'ring-white');
+            });
+        }
+
+        function triggerMockCapture() {
+            const flash = document.getElementById('shutterFlash');
+            const toast = document.getElementById('savedToast');
+            flash.style.opacity = '1';
+            setTimeout(() => flash.style.opacity = '0', 80);
+            setTimeout(() => {
+                toast.classList.remove('scale-75', 'opacity-0');
+                toast.classList.add('scale-100', 'opacity-100');
+                setTimeout(() => {
+                    toast.classList.remove('scale-100', 'opacity-100');
+                    toast.classList.add('scale-75', 'opacity-0');
+                }, 2500);
+            }, 120);
+        }
+
+        function toggleFaq(id) {
+            const ans = document.getElementById(`faq-ans-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            const isHidden = ans.classList.contains('hidden');
+            ans.classList.toggle('hidden');
+            icon.innerText = isHidden ? '-' : '+';
+        }
+    </script>
+</body>
+</html>

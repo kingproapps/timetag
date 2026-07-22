@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for Timetag - Learn how we secure your camera, photos, and GPS data with 100% on-device processing.">
+    <title>Privacy Policy - Timetag Camera</title>
+    
+    <link rel="icon" type="image/png" href="TimeTagicon.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#fc8d00',
+                            orangeHover: '#e07d00',
+                            dark: '#0a0a0b',
+                            card: '#16161a',
+                            border: '#2c2c35',
+                        }
+                    },
+                    fontFamily: {
+                        courier: ['CourierPrime', 'Courier New', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        @font-face {
+            font-family: 'CourierPrime';
+            src: url('CourierPrime.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .custom-font {
+            font-family: 'CourierPrime', 'Courier New', Courier, monospace;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 60%, #fc8d00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white font-sans antialiased">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo & Brand Name -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <img src="TimeTagicon.png" alt="Timetag Logo" class="h-10 w-10 rounded-xl border border-brand-border group-hover:scale-105 transition-transform duration-300">
+                <span class="text-xl font-bold tracking-wider custom-font text-white group-hover:text-brand-orange transition-colors duration-300">
+                    TIME<span class="text-brand-orange">TAG</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide uppercase">
+                <a href="index.html#features" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Features</a>
+                <a href="index.html#customizer" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Interactive Preview</a>
+                <a href="index.html#faq" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">FAQ</a>
+                <a href="support.html" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Support</a>
+            </nav>
+
+            <!-- CTA Download Nav Button -->
+            <div class="flex items-center space-x-4">
+                <a href="index.html#download" class="bg-brand-orange text-brand-dark hover:bg-brand-orangeHover px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-0.5">
+                    Download App
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- PRIVACY CONTENT -->
+    <main class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto relative">
+        <div class="absolute top-20 left-1/2 transform -translate-x-1/2 w-80 h-80 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <article class="space-y-10 relative z-10">
+            <!-- Title Header -->
+            <div class="space-y-4 text-center">
+                <span class="text-brand-orange uppercase text-xs font-bold tracking-widest">Effective Date: July 22, 2026</span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight gradient-text">Privacy Policy</h1>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm">At Timetag, your physical privacy and digital data ownership are fundamental to our architecture. Learn how we handle your information.</p>
+            </div>
+
+            <!-- Intro Card -->
+            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border/60 text-sm leading-relaxed text-gray-300 space-y-4">
+                <p class="font-bold text-white text-base">🛡️ Summary Statement: 100% On-Device & Private</p>
+                <p>
+                    Timetag is built on a **zero-trust database model**. We do not operate cloud servers that upload, store, monitor, sell, or analyze your photos, videos, recorded voice logs, barcode scans, or GPS coordinate points. Everything you capture remains entirely on your physical hardware storage.
+                </p>
+            </div>
+
+            <!-- Sections -->
+            <div class="space-y-8 text-gray-300 leading-relaxed text-sm">
+                
+                <section class="space-y-3">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider custom-font border-b border-brand-border pb-1.5 flex items-center space-x-2">
+                        <span class="text-brand-orange">01.</span>
+                        <span>Camera & Microphone Permissions</span>
+                    </h2>
+                    <p>
+                        Timetag requires active device permission to access your camera and hardware microphone to capture photos and high-resolution videos. The visual frames are processed locally within the application buffer to overlay the selected timestamp styles and coordinate stamps. This data is written directly to your native photo gallery or a local project folder and is never transmitted off-device.
+                    </p>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider custom-font border-b border-brand-border pb-1.5 flex items-center space-x-2">
+                        <span class="text-brand-orange">02.</span>
+                        <span>Location (GPS) Geotagging</span>
+                    </h2>
+                    <p>
+                        To stamp latitude, longitude, elevation, compass bearings, and coordinate precision metadata onto your photos, Timetag queries your mobile device's onboard GPS chip, satellite channels, or offline network triangulation. This coordinate logging runs strictly in real-time when the camera viewfinder is active. We never track your location in the background when the app is closed, and coordinate arrays are never sent to external servers.
+                    </p>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider custom-font border-b border-brand-border pb-1.5 flex items-center space-x-2">
+                        <span class="text-brand-orange">03.</span>
+                        <span>Barcode & QR Scan Code Processing</span>
+                    </h2>
+                    <p>
+                        When utilizing the integrated QR/barcode scanner, the captured scan frames are analyzed in-app using lightning-fast client-side machine learning algorithms. The decoded value (text strings, alphanumeric arrays, or web URLs) is written directly into the image watermark layout and optionally saved to your offline historical logging file. Absolutely no network requests are dispatched during scanning operations.
+                    </p>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider custom-font border-b border-brand-border pb-1.5 flex items-center space-x-2">
+                        <span class="text-brand-orange">04.</span>
+                        <span>Third-Party APIs and Maps</span>
+                    </h2>
+                    <p>
+                        If you choose to use optional features such as "Reverse Geocoding Address Stamps", the app may invoke trusted native system geocoding engines (such as Apple CoreLocation or Google Play Services APIs) to resolve coordinates into human-readable street addresses. These requests are governed directly by the privacy policies of your mobile operating system (Apple iOS or Google Android).
+                    </p>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider custom-font border-b border-brand-border pb-1.5 flex items-center space-x-2">
+                        <span class="text-brand-orange">05.</span>
+                        <span>Children's Privacy Protection</span>
+                    </h2>
+                    <p>
+                        Because Timetag does not gather or transmit personal data, our services are completely safe for all age demographics. We do not deliberately acquire, solicit, or accumulate any identifying information from children under the age of 13.
+                    </p>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider custom-font border-b border-brand-border pb-1.5 flex items-center space-x-2">
+                        <span class="text-brand-orange">06.</span>
+                        <span>Contact and Inquiries</span>
+                    </h2>
+                    <p>
+                        If you have any questions or security audits regarding our local data architecture, please submit an inquiry through our dedicated <a href="support.html" class="text-brand-orange hover:underline font-semibold">Support Hub</a> or contact our compliance officer at <strong class="text-white">privacy@kingproapps.com</strong>.
+                    </p>
+                </section>
+
+            </div>
+
+            <!-- Back to Home CTA -->
+            <div class="text-center pt-8 border-t border-brand-border">
+                <a href="index.html" class="inline-flex items-center space-x-2 text-sm font-bold uppercase text-brand-orange hover:text-white transition-colors">
+                    <span>←</span>
+                    <span>Back to Landing Page</span>
+                </a>
+            </div>
+
+        </article>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-950 border-t border-brand-border py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <img src="TimeTagicon.png" alt="Timetag Logo" class="h-8 w-8 rounded-lg border border-brand-border">
+                <span class="text-md font-bold tracking-wider custom-font text-white">
+                    TIME<span class="text-brand-orange">TAG</span>
+                </span>
+            </div>
+
+            <p class="text-xs text-gray-500 text-center md:text-left order-last md:order-none">
+                &copy; 2026 King Pro Apps. All rights reserved. All trademarks belong to their respective owners.
+            </p>
+
+            <div class="flex space-x-6 text-xs font-semibold uppercase tracking-wider">
+                <a href="privacy.html" class="text-brand-orange hover:text-brand-orange transition-colors">Privacy Policy</a>
+                <a href="support.html" class="text-gray-400 hover:text-brand-orange transition-colors">Support</a>
+                <a href="#" class="text-gray-400 hover:text-brand-orange transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

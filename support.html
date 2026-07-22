@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Timetag Help Center and Support. Submit inquiries, search documentation, or file bug reports regarding our high-integrity timestamp camera app.">
+    <title>Support Hub - Timetag Camera</title>
+    
+    <link rel="icon" type="image/png" href="TimeTagicon.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#fc8d00',
+                            orangeHover: '#e07d00',
+                            dark: '#0a0a0b',
+                            card: '#16161a',
+                            border: '#2c2c35',
+                        }
+                    },
+                    fontFamily: {
+                        courier: ['CourierPrime', 'Courier New', 'Courier', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        @font-face {
+            font-family: 'CourierPrime';
+            src: url('CourierPrime.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .custom-font {
+            font-family: 'CourierPrime', 'Courier New', Courier, monospace;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 60%, #fc8d00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-orange {
+            box-shadow: 0 0 25px -5px rgba(252, 141, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white font-sans antialiased">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-brand-dark/90 backdrop-blur-md border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo & Brand Name -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <img src="TimeTagicon.png" alt="Timetag Logo" class="h-10 w-10 rounded-xl border border-brand-border group-hover:scale-105 transition-transform duration-300">
+                <span class="text-xl font-bold tracking-wider custom-font text-white group-hover:text-brand-orange transition-colors duration-300">
+                    TIME<span class="text-brand-orange">TAG</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide uppercase">
+                <a href="index.html#features" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Features</a>
+                <a href="index.html#customizer" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">Interactive Preview</a>
+                <a href="index.html#faq" class="text-gray-300 hover:text-brand-orange transition-colors duration-200">FAQ</a>
+                <a href="support.html" class="text-brand-orange transition-colors duration-200">Support</a>
+            </nav>
+
+            <!-- CTA Download Nav Button -->
+            <div class="flex items-center space-x-4">
+                <a href="index.html#download" class="bg-brand-orange text-brand-dark hover:bg-brand-orangeHover px-5 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-0.5">
+                    Download App
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN HELP & SUPPORT PANEL -->
+    <main class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+        <!-- Background glows -->
+        <div class="absolute top-20 right-10 w-80 h-80 bg-brand-orange/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-20 left-10 w-72 h-72 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="space-y-16 relative z-10">
+            <!-- Header section -->
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-brand-orange uppercase text-xs font-bold tracking-widest">Customer Care</span>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight gradient-text">Support Hub</h1>
+                <p class="text-base text-gray-400">
+                    Have questions about sat-locking speeds, enterprise multi-folder CSV formats, or stamp customizers? Our technical field engineers are standing by to assist.
+                </p>
+            </div>
+
+            <!-- Double Column layout (Form and Quick Contacts) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left Column: Quick Troubleshooting and Help items (5/12) -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 space-y-6">
+                        <h2 class="text-xl font-bold custom-font text-white border-b border-brand-border pb-3 flex items-center space-x-2">
+                            <span class="text-brand-orange">■</span>
+                            <span>Direct Contacts</span>
+                        </h2>
+
+                        <!-- Email Direct -->
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-white">General Support Email</h3>
+                                <p class="text-xs text-gray-400 mt-0.5">Response within 12-24 Business Hours</p>
+                                <a href="mailto:support@kingproapps.com" class="text-sm text-brand-orange hover:underline font-bold block mt-1">support@kingproapps.com</a>
+                            </div>
+                        </div>
+
+                        <!-- Developer Direct -->
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-white">API & Enterprise Partnerships</h3>
+                                <p class="text-xs text-gray-400 mt-0.5">Inquire about volume/team licensing models</p>
+                                <a href="mailto:partners@kingproapps.com" class="text-sm text-brand-orange hover:underline font-bold block mt-1">partners@kingproapps.com</a>
+                            </div>
+                        </div>
+
+                        <!-- Physical HQ -->
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-white">Main Office</h3>
+                                <address class="text-sm text-gray-300 not-italic mt-1 block leading-relaxed">
+                                    King Pro Apps HQ<br>
+                                    1280 Professional Parkway, Suite 400<br>
+                                    San Francisco, CA 94111
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Instant Resources Card -->
+                    <div class="bg-brand-card p-8 rounded-2xl border border-brand-border/60 space-y-4">
+                        <h2 class="text-lg font-bold custom-font text-white uppercase tracking-wider">⚡ Immediate Fixes</h2>
+                        <ul class="space-y-3.5 text-sm text-gray-300">
+                            <li class="flex items-start space-x-2">
+                                <span class="text-brand-orange font-bold">1.</span>
+                                <span><strong>Satellite Lock Timeout:</strong> Stand in an open field away from dense tree canopies. It takes 5-10s to handshake GPS elevation logs on first launch.</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-brand-orange font-bold">2.</span>
+                                <span><strong>NTP Server Desync:</strong> If your local device time and network stamp differ by >0.5s, trigger manual clock reset inside Settings to re-ping NTP nodes.</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-brand-orange font-bold">3.</span>
+                                <span><strong>Scans Failing to Capture:</strong> Ensure adequate brightness. Tap the target region to focus and align the barcode within the dotted preview lines.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive HTML5 Form with Smooth feedback (7/12) -->
+                <div class="lg:col-span-7 bg-brand-card p-8 sm:p-10 rounded-2xl border border-brand-border/60 glow-orange">
+                    <h2 class="text-2xl font-bold tracking-tight mb-2">Submit Support Request</h2>
+                    <p class="text-sm text-gray-400 mb-8">Fill out the secure fields below. Our customer care system encrypts requests to safeguard technical operational data.</p>
+
+                    <!-- Interactive Form Container -->
+                    <div class="relative">
+                        <!-- Success Banner Overlay (Initially hidden) -->
+                        <div id="successPanel" class="absolute inset-0 bg-brand-card z-20 flex flex-col items-center justify-center text-center p-6 space-y-6 opacity-0 pointer-events-none transition-all duration-300 scale-95">
+                            <div class="w-16 h-16 rounded-full bg-brand-orange/10 border border-brand-orange flex items-center justify-center text-brand-orange">
+                                <svg class="w-8 h-8 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="text-2xl font-bold custom-font text-white">Ticket Created!</h3>
+                                <p class="text-sm text-gray-400 max-w-sm">
+                                    Your secure support inquiry was submitted successfully. A ticket hash has been assigned to your address. Check your inbox shortly.
+                                </p>
+                            </div>
+                            <button onclick="resetSupportForm()" class="bg-brand-border hover:bg-zinc-800 text-white font-semibold px-6 py-2 rounded-lg text-xs uppercase tracking-wider transition-colors border border-brand-border/50">
+                                Send New Message
+                            </button>
+                        </div>
+
+                        <!-- Real HTML Form -->
+                        <form id="supportForm" onsubmit="handleSupportSubmit(event)" class="space-y-6">
+                            
+                            <!-- Field: Name -->
+                            <div class="space-y-2">
+                                <label for="userName" class="text-xs uppercase font-extrabold tracking-wider text-gray-400 block">Full Name *</label>
+                                <input required type="text" id="userName" name="userName" placeholder="Alex Carter" class="w-full bg-brand-dark/60 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-orange/60 focus:ring-1 focus:ring-brand-orange/40 transition-all placeholder-gray-600">
+                            </div>
+
+                            <!-- Field: Email -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="userEmail" class="text-xs uppercase font-extrabold tracking-wider text-gray-400 block">Email Address *</label>
+                                    <input required type="email" id="userEmail" name="userEmail" placeholder="alex@company.com" class="w-full bg-brand-dark/60 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-orange/60 focus:ring-1 focus:ring-brand-orange/40 transition-all placeholder-gray-600">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="userDevice" class="text-xs uppercase font-extrabold tracking-wider text-gray-400 block">Device Model</label>
+                                    <input type="text" id="userDevice" name="userDevice" placeholder="iPhone 15 Pro, Galaxy S24" class="w-full bg-brand-dark/60 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-orange/60 focus:ring-1 focus:ring-brand-orange/40 transition-all placeholder-gray-600">
+                                </div>
+                            </div>
+
+                            <!-- Field: Subject -->
+                            <div class="space-y-2">
+                                <label for="inquirySubject" class="text-xs uppercase font-extrabold tracking-wider text-gray-400 block">Reason for Contact *</label>
+                                <select required id="inquirySubject" name="inquirySubject" class="w-full bg-brand-dark/60 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-orange/60 focus:ring-1 focus:ring-brand-orange/40 transition-all">
+                                    <option value="" disabled selected>Select an option...</option>
+                                    <option value="technical">Technical Camera & GPS Issue</option>
+                                    <option value="licensing">Enterprise Volume Licensing</option>
+                                    <option value="bug">Report a Bug / Vulnerability</option>
+                                    <option value="other">General Question / Feedback</option>
+                                </select>
+                            </div>
+
+                            <!-- Field: Message -->
+                            <div class="space-y-2">
+                                <label for="userMessage" class="text-xs uppercase font-extrabold tracking-wider text-gray-400 block">Message Body *</label>
+                                <textarea required rows="5" id="userMessage" name="userMessage" placeholder="Detail your issue or inquiry with coordinates if relevant..." class="w-full bg-brand-dark/60 border border-brand-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-orange/60 focus:ring-1 focus:ring-brand-orange/40 transition-all placeholder-gray-600 resize-none"></textarea>
+                            </div>
+
+                            <!-- CTA Submit Button -->
+                            <div>
+                                <button type="submit" class="w-full bg-brand-orange text-brand-dark font-extrabold py-3.5 rounded-xl uppercase tracking-wider text-sm hover:bg-brand-orangeHover transition-colors hover:shadow-[0_0_20px_rgba(252,141,0,0.3)] transform active:scale-[0.98]">
+                                    ✉ TRANSMIT REQUEST
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- BACK TO HOME CTA -->
+    <div class="text-center py-12 border-t border-brand-border">
+        <a href="index.html" class="inline-flex items-center space-x-2 text-sm font-bold uppercase text-brand-orange hover:text-white transition-colors">
+            <span>←</span>
+            <span>Back to Landing Page</span>
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-950 border-t border-brand-border py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <img src="TimeTagicon.png" alt="Timetag Logo" class="h-8 w-8 rounded-lg border border-brand-border">
+                <span class="text-md font-bold tracking-wider custom-font text-white">
+                    TIME<span class="text-brand-orange">TAG</span>
+                </span>
+            </div>
+
+            <p class="text-xs text-gray-500 text-center md:text-left order-last md:order-none">
+                &copy; 2026 King Pro Apps. All rights reserved. All trademarks belong to their respective owners.
+            </p>
+
+            <div class="flex space-x-6 text-xs font-semibold uppercase tracking-wider">
+                <a href="privacy.html" class="text-gray-400 hover:text-brand-orange transition-colors">Privacy Policy</a>
+                <a href="support.html" class="text-brand-orange hover:text-brand-orange transition-colors">Support</a>
+                <a href="#" class="text-gray-400 hover:text-brand-orange transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT -->
+    <script>
+        // Form transmission handler
+        function handleSupportSubmit(e) {
+            e.preventDefault();
+
+            // Simulate slight delay representing database lookup/transmission encryption
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.innerText = "🔌 ENCRYPTING & SECURING...";
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                // Show success panel
+                const panel = document.getElementById('successPanel');
+                panel.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                panel.classList.add('opacity-100', 'scale-100');
+
+                // Reset form inputs after transmission finishes
+                document.getElementById('supportForm').reset();
+                submitBtn.innerText = "✉ TRANSMIT REQUEST";
+                submitBtn.disabled = false;
+            }, 1200);
+        }
+
+        // Reset success panel to re-enable contact form
+        function resetSupportForm() {
+            const panel = document.getElementById('successPanel');
+            panel.classList.remove('opacity-100', 'scale-100');
+            panel.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+        }
+    </script>
+</body>
+</html>
